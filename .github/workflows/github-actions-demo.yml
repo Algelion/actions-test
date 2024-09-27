@@ -1,10 +1,14 @@
 name: "Github Actions Demo"
 
-on: [push]
+on: 
+    push:
+        branches:
+        - main
 
 jobs:
     Build-Node-App-Action:
         runs-on: ubuntu-latest
+        environment: production
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -20,6 +24,6 @@ jobs:
                 echo "API_VAR=${{ vars.API_VAR }}" >> .env
 
             - name: Verify .env file
-              run: cat .env
+              run: cat .env 
 
                 
