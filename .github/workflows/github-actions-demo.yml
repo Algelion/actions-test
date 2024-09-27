@@ -2,10 +2,6 @@ name: "Github Actions Demo"
 
 on: [push]
 
-env:
-    API_SECRET: ${{ secrets.API_SECRET }}
-    API_VAR: ${{ vars.API_VAR }}
-
 jobs:
     Build-Node-App-Action:
         runs-on: ubuntu-latest
@@ -13,10 +9,15 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v4
 
+            - name: Setup Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '22.3'
+
             - name: Create .env file
               run: |
-                echo "API_SECRET=$API_SECRET" >> .env
-                echo "API_VAR=$API_VAR" >> .env
+                echo "API_SECRET=${{ secrets.API_SECRET }}" >> .env
+                echo "API_VAR=${{ vars.API_VAR }}" >> .env
 
             - name: Verify .env file
               run: cat .env
