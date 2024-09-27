@@ -1,14 +1,24 @@
 name: "Github Actions Demo"
-run-name: ${{github.actor}} is testing ${{github.repository}}
+
 on: [push]
+
+env:
+    API_SECRET: ${{ secrets.API_SECRET }}
+    API_VAR: ${{ vars.API_VAR }}
+
 jobs:
     Build-Node-App-Action:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v2
-            - run: ${{env.API_VAR}}
-            - run: yarn
-            - run: yarn start
+              uses: actions/checkout@v4
+
+            - name: Create .env file
+              run: |
+                echo "API_SECRET=$API_SECRET" >> .env
+                echo "API_VAR=$API_VAR" >> .env
+
+            - name: Verify .env file
+              run: cat .env
 
                 
