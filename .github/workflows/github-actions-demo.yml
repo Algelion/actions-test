@@ -20,6 +20,7 @@ jobs:
 
             - name: Create .env file
               run: |
+                echo "API_SECRET=${{ secrets.API_SECRET }}" >> .env
                 echo "API_VAR=${{ vars.API_VAR }}" >> .env
 
             - name: Verify .env file
