@@ -5,6 +5,8 @@ jobs:
     Build-Node-App-Action:
         runs-on: ubuntu-latest
         steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
             - run: yarn
             - run: yarn start
 
